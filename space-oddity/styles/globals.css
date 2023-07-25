@@ -183,7 +183,7 @@
 
 .newsDivLg{
   @apply
-  max-w-[70%]
+  max-w-[90%]
   overflow-y-scroll
   scrollbar-thin
   scrollbar-track-sky-700
@@ -193,7 +193,7 @@
     px-4
     rounded-lg
     bg-gradient-to-br
-    from-[#03045e]
+    from-[#03125e]
     to-[#0077b6]
     lg:grid
     space-y-4
@@ -1882,6 +1882,7 @@ to-red-500
   py-3
   bg-opacity-80
   w-full
+  my-6
   h-[70px]
   flex
   items-center
