@@ -1,17 +1,15 @@
 //front-end
 import React from 'react'
 import {
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   Button,
   Icon
 } from '../../'
+import ArticleDetails from './ArticleDetails'
 //back-end
 import { useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { creds, store } from '../../../backend/firebase'
+
 
 function IndArticles ({ db }) {
   return (
@@ -28,7 +26,13 @@ function IndArticles ({ db }) {
           style={{
             backgroundImage: `url(${db?.data()?.articleImage})`
           }}
-        ></div>
+        >
+          {db && (
+            <ArticleDetails 
+            detail={db}
+            />
+          )}
+        </div>
       ) : (
         <div
           className='
@@ -38,7 +42,11 @@ function IndArticles ({ db }) {
         bg-no-repeat
         bg-placeholder
         '
-        ></div>
+        >
+                      <ArticleDetails 
+            detail={db}
+            />
+        </div>
       )}
     </div>
   )

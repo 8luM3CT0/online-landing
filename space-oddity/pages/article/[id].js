@@ -29,13 +29,14 @@ function SpaceArticle () {
       <div
         className='
     h-screen
-    overflow-hidden
+    overflow-y-scroll
+    scrollbar-hide
     bg-gradient-to-br
     from-slate-800
     to-sky-600
     '
       >
-        <ArticleHeader />
+        <ArticleHeader editor={snapshot?.data()?.createdBy} articleId={id} />
         <Head>
           <title>Article by: {snapshot?.data()?.createdBy} </title>
         </Head>
@@ -46,7 +47,7 @@ function SpaceArticle () {
         w-[95%]
         h-full
         overflow-y-scroll
-        scrollbar-thin
+        scrollbar-hide
         scrollbar-thumb-sky-600
         scrollbar-track-slate-800
         px-3
@@ -124,6 +125,34 @@ function SpaceArticle () {
             </div>
           </div>
           {/**end of top components */}
+          <div className="
+          overflow-y-scroll
+          scrollbar-thin
+          scrollbar-track-slate-900
+          scrollbar-thumb-sky-800
+          px-3
+          py-2
+          pb-[340px]
+          rounded-lg
+          h-[80%]
+          w-[90%]
+          mx-auto
+          bg-sky-500
+          bg-opacity-70
+          ">
+            {snapshot?.data()?.blogText && (
+              <>
+                <h3 className="
+                text-lg
+                font-robot-slab
+                font-normal
+                text-slate-100
+                ">
+                  {snapshot?.data()?.blogText}
+                </h3>
+              </>
+            )}
+          </div>
         </main>
       </div>
     </>

@@ -1,15 +1,37 @@
 //front-end
 import React from 'react'
-import { Button, Icon } from '../'
+import { Button, Icon, Modal, ModalHeader, ModalBody, ModalFooter } from '../'
 //back-end
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import { creds, store, storage } from '../../backend/firebase'
+import { creds, store, storage, provider } from '../../backend/firebase'
 import { useAuthState } from 'react-firebase-hooks/auth'
+import { useEffect } from 'react'
+import firebase from 'firebase'
+import AddBlogForm from './AddBlogForm'
 
-function ArticleHeader () {
+function ArticleHeader ({editor, articleId}) {
   const [user] = useAuthState(creds)
   const router = useRouter()
+  const [editModal, setEditModal] = useState(false)
+
+  const signIn = () => {
+    creds.signInWithPopup(provider).catch(alert)
+  }
+
+  useEffect(() => {
+    if(user){
+      store.collection('SOUser').doc(user?.uid).set(
+        {
+          email: user?.email,
+          displayName: user?.displayName,
+          photoURL: user?.photoURL,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        },
+        {merge: true}
+      )
+    }
+  }, [user])
 
   return (
     <>
@@ -34,7 +56,7 @@ function ArticleHeader () {
             py-3
             w-full
             bg-slate-700
-            bg-opacity-70
+            bg-opacity-90
             '
         >
           <Button
@@ -48,7 +70,21 @@ function ArticleHeader () {
             <Icon name='web' />
             Blog
           </Button>
+          {user?.displayName == editor && (
+                      <Button
+                      onClick={() => setEditModal(true)}
+                      buttonType='link'
+                      size='regular'
+                      color='green'
+                      ripple='light'
+                      className='font-normal capitalize text-base font-robot-condensed'
+                    >
+                      <Icon name='edit' />
+                      Edit
+                    </Button>
+          )}
           <Button
+          onClick={signIn}
             buttonType='link'
             size='regular'
             color='blue'
@@ -68,7 +104,7 @@ function ArticleHeader () {
             py-4
             w-full
             bg-sky-800
-            bg-opacity-70
+            bg-opacity-90
             '
         >
           <Button
@@ -113,6 +149,31 @@ function ArticleHeader () {
           </Button>
         </div>
       </header>
+      <Modal
+      size='lg'
+      active={editModal}
+      toggler={() => setEditModal(false)}
+      >
+        <ModalHeader
+        toggler={() => setEditModal(false)}
+        >
+          <h1 className="
+          font-robot-slab
+          font-semibold
+          text-lg
+          pl-5
+          pr-9
+          text-sky-800
+          ">
+            Edit the article
+          </h1>
+        </ModalHeader>
+        <ModalBody>
+          <AddBlogForm 
+          parentId={articleId}
+          />
+        </ModalBody>
+      </Modal>
     </>
   )
 }

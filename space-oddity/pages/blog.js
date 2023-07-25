@@ -11,6 +11,7 @@ import {
 import { creds, store } from '../backend/firebase'
 import { useCollection } from 'react-firebase-hooks/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
+import Head from 'next/head'
 
 function Blog () {
   const [user] = useAuthState(creds)
@@ -28,6 +29,9 @@ function Blog () {
     '
     >
       <BlogHeader />
+      <Head>
+        <title>Here are the blog articles</title>
+      </Head>
       <main
         className='blogMain
         '

@@ -25,6 +25,39 @@ function DesktopPost ({
   const [user] = useAuthState(creds)
   const [editArticle, setEdit] = useState(false)
   const router = useRouter()
+  //useStates for title && description
+  const [upTitle, setUpTitle] = useState('')
+  const [upDesc, setUpDesc] = useState('')
+
+  const updateTitle = e => {
+    e.preventDefault()
+
+    if(!upTitle){
+      alert('No title. Check input again.')
+    }
+
+    store.collection('articles').doc(id).set({
+      articleTitle: upTitle
+    },
+    {merge: true}
+    )
+    setUpTitle('')
+  }
+
+  const updateDesc = e => {
+    e.preventDefault()
+
+    if(!upDesc){
+      alert('No title. Check input again.')
+    }
+
+    store.collection('articles').doc(id).set({
+      articleDesc: upDesc
+    },
+    {merge: true}
+    )
+    setUpDesc('')
+  }
 
   return (
     <>
@@ -129,6 +162,7 @@ function DesktopPost ({
             user?.displayName == 'Robert Seed' ||
             user?.displayName == createdBy) && (
             <Button
+            onClick={() => setEdit(true)}
               color='green'
               buttonType='filled'
               block={true}
@@ -154,6 +188,99 @@ function DesktopPost ({
           </Button>
         </span>
       </div>
+      <Modal
+      size='lg'
+      active={editArticle}
+      toggler={() => setEdit(false)}
+      >
+        <ModalHeader
+        toggler={() => setEdit(false)}
+        >
+          <h1 className="
+          text-xl 
+          font-robot-slab 
+          font-normal 
+          text-sky-500 
+          pl-4 
+          pr-7">
+            Edit article title here...
+          </h1>
+        </ModalHeader>
+        <ModalBody>
+          <div className="
+          desktopPostEdit
+          ">
+            <h3 className="
+            desktopPostEditTitle
+            ">
+              Edit title
+            </h3>
+
+            <input 
+            type="text" 
+            value={upTitle}
+            onChange={e => setUpTitle(e.target.value)}
+            placeholder='Edit title...'
+            className='
+            bg-slate-800 
+            px-4 
+            py-3 
+            h-[40px] 
+            rounded-md
+            w-[90%] 
+            mx-auto
+            text-sky-100
+            text-xl
+            ' />
+          <Button
+             onClick={updateTitle}
+            color='green'
+            buttonType='filled'
+            size='sm'
+            ripple='light'
+            className='font-robot-slab font-normal capitalize'
+            >
+              Edit title
+            </Button>
+            <h3 className="
+            desktopPostEditTitle
+            ">
+              Edit description
+            </h3>
+              <textarea 
+              type="text" 
+              value={upDesc}
+              onChange={e => setUpDesc(e.target.value)}
+              placeholder='Edit short description...'
+              className='
+              bg-slate-800 
+              px-4 
+              py-3 
+              h-[75%] 
+              w-[90%] 
+              mx-auto
+              text-sky-100
+              rounded-lg
+              text-xl
+              overflow-y-scroll
+              scrollbar-thin
+              scrollbar-track-sky-800
+              scrollbar-thumb-sky-100
+              '
+              />
+          <Button
+           onClick={updateDesc}
+            color='green'
+            buttonType='filled'
+            size='sm'
+            ripple='light'
+            className='font-robot-slab font-normal capitalize'
+            >
+              Edit description
+            </Button>
+          </div>
+        </ModalBody>
+      </Modal>
     </>
   )
 }

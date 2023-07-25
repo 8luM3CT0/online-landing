@@ -116,7 +116,7 @@
     bg-slate-600
     bg-opacity-20
     sm:h-1/2
-    h-3/4
+    h-5/6
     opacity-90
     max-w-[90%]
     mx-auto
@@ -1826,7 +1826,7 @@ to-red-500
        scrollbar-hide
        bg-slate-700
        bg-opacity-80
-       pb-[300px]
+       pb-[500px]
 }
 /*article main div for mobile*/
 .mobArticle{
@@ -1979,7 +1979,7 @@ to-red-500
   min-w-[540px]
   place-items-center
   rounded-xl
-  cursor-pointer
+  cursor-default
   hover:shadow-xl
   shadow-sky-700
   transform
@@ -1987,5 +1987,60 @@ to-red-500
   duration-300
   ease-in-out
   hidden
+}
+/*blog form*/
+.addBlogForm{
+  @apply
+  max-h-[520px]
+  min-h-[500px]
+  md:max-h-[640px]
+  md:min-h-[600px]
+  lg:max-h-[720px]
+  lg:min-h-[700px]
+  max-w-[310px]
+  min-w-[280px]
+  md:max-w-[448px]
+  md:min-w-[420px]
+  lg:max-w-[640px]
+  lg:min-w-[600px]
+  grid
+  place-items-center
+  bg-gradient-to-br
+  from-sky-700
+  to-slate-800
+  rounded-lg
+  space-y-5
+  lg:overflow-hidden
+  overflow-y-scroll
+  scrollbar-hide
+}
+/*desktop post edit modal*/
+.desktopPostEdit{
+  @apply
+  h-[480px]
+  lg:max-w-[620px]
+  lg:min-w-[600px]
+  md:max-w-[448px]
+  md:min-w-[420px]
+          max-w-[310px]
+          min-w-[280px]
+          flex
+          flex-col
+          py-2
+          space-y-3
+          place-items-center
+          bg-sky-700
+          rounded-lg
+}
+/*desktop post edit title details*/
+.desktopPostEditTitle{
+  @apply
+  place-self-start
+  px-4
+  py-3
+  font-robot-slab
+  font-normal
+  text-lg
+  text-slate-50
 }
 }

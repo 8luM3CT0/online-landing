@@ -1,5 +1,5 @@
 import firebase from "firebase";
-import 'firebase/storage'
+import 'firebase/storage/dist/index.cjs.js';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA25fq5LOXnvAeKO1YOrsz2McZAQt0Zlk0",
